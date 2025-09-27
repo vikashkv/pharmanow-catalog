@@ -9,18 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/catalog/products")
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
-
-    @GetMapping("/all-products")
-    public ResponseEntity<List<ProductDTO>> getAllProducts() {
-        return ResponseEntity.ok(productService.getAllProducts());
-    }
 
     @PostMapping("/create-product")
     public ResponseEntity<ProductDTO> createProduct(@Validated @RequestBody ProductDTO productDTO) {
@@ -43,11 +36,11 @@ public class ProductController {
         return ResponseEntity.ok("Product deleted successfully");
     }
 
-    //@GetMapping("/all-products")
-    public ResponseEntity<Page<ProductDTO>> getProducts(
+    @GetMapping("/get-products-list")
+    public ResponseEntity<Page<ProductDTO>> searchProducts(
             @RequestParam(required = false) String search,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "name") String sortBy,
             @RequestParam(defaultValue = "asc") String direction) {
         return ResponseEntity.ok(productService.searchProducts(search, page, size, sortBy, direction));

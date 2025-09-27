@@ -74,6 +74,7 @@ public class ProductServiceImpl implements ProductService {
         productRepository.deleteBySku(sku);
     }
 
+    @Override
     public Page<ProductDTO> searchProducts(String keyword, int page, int size, String sortBy, String direction) {
         Sort sort = direction.equalsIgnoreCase(Sort.Direction.DESC.name())
                 ? Sort.by(sortBy).descending()
